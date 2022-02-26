@@ -1,35 +1,45 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Material_1797_1679_3" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="MyBaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <item name="android:statusBarColor">@color/red_500</item>
-        <item name="android:navigationBarColor">@color/red_500</item>
-        <item name="colorPrimary">@color/red_600</item>
+        <item name="android:statusBarColor">?superColor</item>
+        <item name="android:navigationBarColor">?superColor</item>
+        <item name="colorPrimary">?superColor</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryContainer">@color/red_100</item>
-        <item name="colorOnPrimaryContainer">@color/red_900</item>
-        <item name="colorPrimaryInverse">@color/red_200</item>
-        <item name="colorSecondary">@color/red_600</item>
+        <item name="colorPrimaryContainer">?superColor</item>
+        <item name="colorOnPrimaryContainer">?superColor</item>
+        <item name="colorPrimaryInverse">?superColor</item>
+        <item name="colorSecondary">?superColor</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSecondaryContainer">@color/red_100</item>
-        <item name="colorOnSecondaryContainer">@color/red_900</item>
-        <item name="colorTertiary">@color/red_600</item>
-        <item name="colorOnTertiary">#712323</item>
-        <item name="colorTertiaryContainer">@color/red_100</item>
-        <item name="colorOnTertiaryContainer">@color/red_900</item>
+        <item name="colorSecondaryContainer">?superColor</item>
+        <item name="colorOnSecondaryContainer">?superColor</item>
+        <item name="colorTertiary">?superColor</item>
+        <item name="colorOnTertiary">?superColor</item>
+        <item name="colorTertiaryContainer">?superColor</item>
+        <item name="colorOnTertiaryContainer">?superColor</item>
+        <item name="colorOnSurface">?superColor</item>
 
         <item name="materialButtonStyle">@style/myButtonStyle</item>
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
+        <item name="chipStyle">@style/myChipStyle</item>
+        <item name="tabStyle">@style/myTabStyle</item>
+        <item name="materialCardViewStyle">@style/myMaterialCardViewStyle</item>
+        <!--        <item name="textInputStyle"></item>-->
+        <item name="textAppearanceHeadline1">@style/myHeadline1</item>
+        <!--        <item name="shapeAppearanceSmallComponent">@style/mySmallComponentStyle</item>-->
+
     </style>
 
-    <style name="myButtonStyle" parent="Widget.MaterialComponents.Button">
 
+    <style name="MyRedTheme" parent="MyBaseTheme">
+        <item name="superColor">@color/red_900</item>
     </style>
 
-    <style name="myFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">#FF0C59FB</item>
+    <style name="MyBlueTheme" parent="MyBaseTheme">
+        <item name="superColor">#0E62FF</item>
     </style>
-    <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="backgroundTint">@color/red_600</item>
+
+    <style name="MyGreenTheme" parent="MyBaseTheme">
+        <item name="superColor">#26FF0E</item>
     </style>
 </resources>

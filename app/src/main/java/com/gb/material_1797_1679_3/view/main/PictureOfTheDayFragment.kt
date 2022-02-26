@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -78,13 +79,16 @@ class PictureOfTheDayFragment : Fragment() {
             }
         })
 
+
         binding.fab.setOnClickListener{
             if(isMain){
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 binding.bottomAppBar.navigationIcon = null
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
                 binding.fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_back_fab))
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
             }else{
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
                 binding.bottomAppBar.navigationIcon = ContextCompat.getDrawable(requireContext(),R.drawable.ic_hamburger_menu_bottom_bar)
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                 binding.fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_plus_fab))
@@ -93,6 +97,14 @@ class PictureOfTheDayFragment : Fragment() {
             isMain = !isMain
         }
 
+
+
+        binding.btnYes.setOnClickListener {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+        binding.btnNo.setOnClickListener {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     var isMain:Boolean = true

@@ -23,6 +23,7 @@ import com.gb.material_1797_1679_3.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
+import com.google.android.material.tabs.TabItem
 
 class ChipsFragment : Fragment() {
     private var _binding: FragmentChipsBinding? = null
@@ -51,6 +52,8 @@ class ChipsFragment : Fragment() {
                 Toast.makeText(requireContext(),"chip $checkedId ${it.text}",Toast.LENGTH_SHORT).show()
             }
         }
+        binding.tabs.getTabAt(0)!!.text = "РАБОТАЕТ"
+        //binding.cardView.setBackgroundDrawable(resources.getDrawable(R.drawable.gradient))
     }
 
 

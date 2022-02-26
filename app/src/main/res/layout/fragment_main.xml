@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp">
+
+        <Button
+            android:id="@+id/btnYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Тест"
+            android:textAppearance="?textAppearanceHeadline1"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnNo"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Тест"
+            android:textAppearance="?textAppearanceHeadline1"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnYes" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
@@ -50,7 +70,9 @@
             app:srcCompat="@drawable/ic_no_photo_vector" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include android:id="@+id/included" layout="@layout/bottom_sheet_layout" />
+    <include
+        android:id="@+id/included"
+        layout="@layout/bottom_sheet_layout" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
