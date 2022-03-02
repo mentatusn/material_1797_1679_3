@@ -8,5 +8,8 @@
     <string name="settings">settings</string>
     <string name="search">Search</string>
     <string name="imageDesc">Картинка</string>
+    <string name="system">System</string>
+    <string name="mars">Mars</string>
+    <string name="earth">Earth</string>
 
 </resources>
