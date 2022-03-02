@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.databinding.BottomNavigationLayoutBinding
 import com.gb.material_1797_1679_3.databinding.FragmentMainBinding
+import com.gb.material_1797_1679_3.view.navigation.BottomNavigationActivity
 import com.gb.material_1797_1679_3.view.navigation.NavigationActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -40,7 +41,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                     startActivity(Intent(requireContext(),NavigationActivity::class.java))
                 }
                 R.id.navigation_two->{
-                    //startActivity(Intent(requireContext(),NavigationActivity::class.java))
+                    startActivity(Intent(requireContext(), BottomNavigationActivity::class.java))
                 }
             }
             true

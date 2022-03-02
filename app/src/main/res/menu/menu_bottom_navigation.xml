@@ -11,7 +11,7 @@
             android:id="@+id/navigation_two"
             android:icon="@drawable/ic_send"
             app:showAsAction="always"
-            android:title="На экран 2" />
+            android:title="На экран BottomNavigationActivity" />
 
 
 </menu>
