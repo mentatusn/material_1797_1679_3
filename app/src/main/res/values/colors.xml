@@ -19,4 +19,7 @@
     <color name="red_800">#C82424</color>
     <color name="red_900">#AE0B0B</color>
 
+    <color name="colorAccent40Alfa">#66AE0B0B</color>
+    <color name="colorAccent">#AE0B0B</color>
+
 </resources>
