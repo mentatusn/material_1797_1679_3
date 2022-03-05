@@ -7,6 +7,14 @@
 
 
 
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="btnTwo,btnOne"/>
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier1"
         android:layout_width="wrap_content"

@@ -34,6 +34,9 @@ class ConstraintFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*binding.btnOne.visibility = View.GONE
+        binding.btnTwo.visibility = View.GONE*/
+        binding.group1.visibility = View.GONE
     }
 
 
