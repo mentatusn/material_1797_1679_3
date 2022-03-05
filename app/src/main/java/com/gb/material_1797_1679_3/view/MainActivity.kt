@@ -1,9 +1,7 @@
 package com.gb.material_1797_1679_3.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.view.main.PictureOfTheDayFragment
 

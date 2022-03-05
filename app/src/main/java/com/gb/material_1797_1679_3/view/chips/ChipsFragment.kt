@@ -1,29 +1,13 @@
 package com.gb.material_1797_1679_3.view.chips
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.*
-import android.widget.FrameLayout
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import coil.load
-import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.databinding.FragmentChipsBinding
-import com.gb.material_1797_1679_3.databinding.FragmentMainBinding
-import com.gb.material_1797_1679_3.view.MainActivity
-import com.gb.material_1797_1679_3.view.main.BottomNavigationDrawerFragment
-import com.gb.material_1797_1679_3.viewmodel.PictureOfTheDayState
-import com.gb.material_1797_1679_3.viewmodel.PictureOfTheDayViewModel
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
-import com.google.android.material.tabs.TabItem
 
 class ChipsFragment : Fragment() {
     private var _binding: FragmentChipsBinding? = null

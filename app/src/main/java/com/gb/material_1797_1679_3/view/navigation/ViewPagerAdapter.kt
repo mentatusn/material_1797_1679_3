@@ -1,9 +1,6 @@
 package com.gb.material_1797_1679_3.view.navigation
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 const val EARTH_KEY = 0

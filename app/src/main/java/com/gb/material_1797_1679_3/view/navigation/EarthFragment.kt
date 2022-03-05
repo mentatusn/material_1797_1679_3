@@ -5,7 +5,6 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.databinding.FragmentEarthBinding
-import com.gb.material_1797_1679_3.databinding.FragmentMainBinding
 
 
 class EarthFragment : Fragment() {

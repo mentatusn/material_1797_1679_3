@@ -1,7 +1,9 @@
 package com.gb.material_1797_1679_3.view.layouts.constraint
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.databinding.FragmentConstraintBinding
 

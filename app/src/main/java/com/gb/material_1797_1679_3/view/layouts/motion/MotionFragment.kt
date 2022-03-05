@@ -1,17 +1,18 @@
 package com.gb.material_1797_1679_3.view.layouts.motion
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.gb.material_1797_1679_3.databinding.FragmentConstraintBinding
-import com.gb.material_1797_1679_3.databinding.FragmentMotionStartBinding
+import com.gb.material_1797_1679_3.databinding.FragmentMotionBinding
 
 
 class MotionFragment : Fragment() {
 
 
-    private var _binding: FragmentMotionStartBinding? = null
-    private val binding: FragmentMotionStartBinding
+    private var _binding: FragmentMotionBinding? = null
+    private val binding: FragmentMotionBinding
         get() = _binding!!
 
 
@@ -20,7 +21,7 @@ class MotionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMotionStartBinding.inflate(inflater, container, false)
+        _binding = FragmentMotionBinding.inflate(inflater, container, false)
         return binding.root
     }
 

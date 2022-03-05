@@ -1,8 +1,7 @@
 package com.gb.material_1797_1679_3
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).

@@ -1,12 +1,11 @@
 package com.gb.material_1797_1679_3.view.layouts
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.databinding.ActivityLayoutBinding
 import com.gb.material_1797_1679_3.view.layouts.constraint.ConstraintFragment
-
 import com.gb.material_1797_1679_3.view.layouts.coordinator.CoordinatorFragment
 import com.gb.material_1797_1679_3.view.layouts.motion.MotionFragment
 

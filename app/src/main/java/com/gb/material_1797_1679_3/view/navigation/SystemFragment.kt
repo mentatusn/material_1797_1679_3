@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.R
-import com.gb.material_1797_1679_3.databinding.FragmentMainBinding
 import com.gb.material_1797_1679_3.databinding.FragmentSystemBinding
 
 
