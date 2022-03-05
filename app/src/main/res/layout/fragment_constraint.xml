@@ -6,51 +6,55 @@
     android:layout_height="match_parent">
 
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOne"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="196dp"
+        android:layout_height="83dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="Щирина 50%, Высота 10%"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintBottom_toTopOf="@+id/btnTwo"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
         app:layout_constraintWidth_percent="0.5" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTwo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
         android:insetTop="0dp"
         android:insetBottom="0dp"
-
         android:text="Щирина 50%, Высота 10%"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOne"
-        app:layout_constraintWidth_percent="0.25" />
+
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintWidth_percent="0.25"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="426dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:autoSizeTextType="uniform"
-        android:text="sergwerwgewrgewrhjhsrthdasgerg"
         android:maxLines="1"
-        app:layout_constraintWidth_percent="0.25"
+        android:text="sergwerwgewrgewrhjhsrthdasgerg"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTwo" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintWidth_percent="0.25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
