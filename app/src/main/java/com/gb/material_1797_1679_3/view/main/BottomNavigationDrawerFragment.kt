@@ -1,18 +1,13 @@
 package com.gb.material_1797_1679_3.view.main
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.R
-import com.gb.material_1797_1679_3.databinding.ActivityLayoutBinding
 import com.gb.material_1797_1679_3.databinding.BottomNavigationLayoutBinding
-import com.gb.material_1797_1679_3.databinding.FragmentMainBinding
-import com.gb.material_1797_1679_3.view.constraint.ConstraintFragment
-import com.gb.material_1797_1679_3.view.constraint.LayoutActivity
+import com.gb.material_1797_1679_3.view.layouts.LayoutActivity
 import com.gb.material_1797_1679_3.view.navigation.BottomNavigationActivity
 import com.gb.material_1797_1679_3.view.navigation.NavigationActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyRedTheme">
         <activity
-            android:name=".view.constraint.LayoutActivity"
+            android:name="com.gb.material_1797_1679_3.view.layouts.LayoutActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

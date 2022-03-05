@@ -1,12 +1,9 @@
-package com.gb.material_1797_1679_3.view.constraint
+package com.gb.material_1797_1679_3.view.layouts.constraint
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.databinding.FragmentConstraintBinding
-import com.gb.material_1797_1679_3.databinding.FragmentEarthBinding
-import com.gb.material_1797_1679_3.databinding.FragmentMainBinding
 
 
 class ConstraintFragment : Fragment() {

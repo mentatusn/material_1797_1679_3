@@ -1,26 +1,14 @@
-package com.gb.material_1797_1679_3.view.constraint
+package com.gb.material_1797_1679_3.view.layouts
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
-import android.view.Menu
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.R
-import com.gb.material_1797_1679_3.databinding.ActivityBottomNavigationBinding
 import com.gb.material_1797_1679_3.databinding.ActivityLayoutBinding
-import com.gb.material_1797_1679_3.databinding.ActivityNavigationBinding
-import com.gb.material_1797_1679_3.view.chips.ChipsFragment
-import com.gb.material_1797_1679_3.view.coordinator.CoordinatorFragment
-import com.gb.material_1797_1679_3.view.main.BottomNavigationDrawerFragment
-import com.gb.material_1797_1679_3.view.main.PictureOfTheDayFragment
-import com.gb.material_1797_1679_3.view.navigation.EarthFragment
-import com.gb.material_1797_1679_3.view.navigation.MarsFragment
-import com.gb.material_1797_1679_3.view.navigation.SystemFragment
-import com.google.android.material.badge.BadgeDrawable.BOTTOM_END
-import com.google.android.material.badge.BadgeDrawable.TOP_START
+import com.gb.material_1797_1679_3.view.layouts.constraint.ConstraintFragment
+
+import com.gb.material_1797_1679_3.view.layouts.coordinator.CoordinatorFragment
+import com.gb.material_1797_1679_3.view.layouts.motion.MotionFragment
 
 class LayoutActivity : AppCompatActivity() {
 
@@ -45,7 +33,7 @@ class LayoutActivity : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_motion -> {
-
+                    navigationTo(MotionFragment())
                     true
                 }
                 else -> true

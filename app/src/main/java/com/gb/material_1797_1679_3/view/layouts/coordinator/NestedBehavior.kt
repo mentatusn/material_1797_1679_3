@@ -1,4 +1,4 @@
-package com.gb.material_1797_1679_3.view.coordinator
+package com.gb.material_1797_1679_3.view.layouts.coordinator
 
 import android.content.Context
 import android.util.AttributeSet
