@@ -13,6 +13,7 @@ import com.gb.material_1797_1679_3.databinding.ActivityBottomNavigationBinding
 import com.gb.material_1797_1679_3.databinding.ActivityLayoutBinding
 import com.gb.material_1797_1679_3.databinding.ActivityNavigationBinding
 import com.gb.material_1797_1679_3.view.chips.ChipsFragment
+import com.gb.material_1797_1679_3.view.coordinator.CoordinatorFragment
 import com.gb.material_1797_1679_3.view.main.BottomNavigationDrawerFragment
 import com.gb.material_1797_1679_3.view.main.PictureOfTheDayFragment
 import com.gb.material_1797_1679_3.view.navigation.EarthFragment
@@ -40,8 +41,7 @@ class LayoutActivity : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_coordinator -> {
-
-
+                    navigationTo(CoordinatorFragment())
                     true
                 }
                 R.id.bottom_motion -> {
@@ -51,7 +51,7 @@ class LayoutActivity : AppCompatActivity() {
                 else -> true
             }
         }
-        binding.bottomNavigationView.selectedItemId = R.id.bottom_constraint
+        binding.bottomNavigationView.selectedItemId = R.id.bottom_coordinator
 
 
         }
