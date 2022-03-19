@@ -1,5 +1,6 @@
 package com.gb.material_1797_1679_3.view.animations
 
+import android.app.ActionBar
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -15,23 +17,27 @@ import com.gb.material_1797_1679_3.R
 
 import com.gb.material_1797_1679_3.databinding.ActivityAnimationsBinding
 import com.gb.material_1797_1679_3.databinding.ActivityAnimationsExplodeBinding
+import com.gb.material_1797_1679_3.databinding.ActivityAnimationsPathBinding
 import com.gb.material_1797_1679_3.databinding.ActivityAnimationsZoomBinding
 
 class AnimationsActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityAnimationsZoomBinding
+    lateinit var binding: ActivityAnimationsPathBinding
     var flag = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAnimationsZoomBinding.inflate(layoutInflater)
+        binding = ActivityAnimationsPathBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.imageView.setOnClickListener {
+        binding.button.setOnClickListener {
 
-            val changeBounds = ChangeImageTransform()
-            changeBounds.duration = 3000
-            TransitionManager.beginDelayedTransition(binding.container,changeBounds)
+            val changeBounds = ChangeBounds()
+            changeBounds.duration= 5000
+            changeBounds.setPathMotion(ArcMotion())
+            TransitionManager.beginDelayedTransition(binding.root,changeBounds)
             flag = !flag
-            binding.imageView.scaleType = if(flag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.CENTER_INSIDE
+            val params = binding.button.layoutParams as FrameLayout.LayoutParams
+            params.gravity = if(flag) Gravity.BOTTOM or Gravity.END else Gravity.TOP or Gravity.START
+            binding.button.layoutParams = params
         }
     }
 
