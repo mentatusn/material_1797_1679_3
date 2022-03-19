@@ -35,25 +35,61 @@ class AnimationsActivity : AppCompatActivity() {
         binding = ActivityAnimationsBonusStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val constraintSet= ConstraintSet()
+        constraintSet.clone(binding.constraintContainer)
+
         binding.backgroundImage.setOnClickListener {
             flag = !flag
+            val changeBounds = ChangeBounds()
+            changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+            changeBounds.duration= 1000L
+            changeBounds.addListener(object : Transition.TransitionListener {
+                override fun onTransitionStart(transition: Transition) {
+
+                }
+
+                override fun onTransitionEnd(transition: Transition) {
+                    Handler(mainLooper).postDelayed({
+
+                        flag = !flag
+                        val changeBounds = ChangeBounds()
+                        changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+                        changeBounds.duration= 1000L
+                        TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
+
+                        constraintSet.connect(R.id.title,ConstraintSet.END,R.id.backgroundImage,ConstraintSet.START)
+                        constraintSet.clear(R.id.title,ConstraintSet.START)
+                        constraintSet.applyTo(binding.constraintContainer)
+                    },
+                        1000L)
+                }
+
+                override fun onTransitionCancel(transition: Transition) {
+
+                }
+
+                override fun onTransitionPause(transition: Transition) {
+
+                }
+
+                override fun onTransitionResume(transition: Transition) {
+
+                }
+
+            });
+            TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
             if(flag){
-                val changeBounds = ChangeBounds()
-                changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
-                changeBounds.duration= 1000L
-                TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
-
-                val constraintSet= ConstraintSet()
-                constraintSet.clone(this,R.layout.activity_animations_bonus_end)
+                constraintSet.connect(R.id.title,ConstraintSet.END,R.id.constraint_container,ConstraintSet.END)
+                constraintSet.connect(R.id.title,ConstraintSet.START,R.id.constraint_container,ConstraintSet.START)
+                constraintSet.setHorizontalBias(R.id.title,0.8f)
+                constraintSet.constrainPercentWidth(R.id.title,0.5f)
+                //constraintSet.clear(R.id.title,ConstraintSet.END)
                 constraintSet.applyTo(binding.constraintContainer)
-            }else{
-                val changeBounds = ChangeBounds()
-                changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
-                changeBounds.duration= 1000L
-                TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
 
-                val constraintSet= ConstraintSet()
-                constraintSet.clone(this,R.layout.activity_animations_bonus_start)
+
+            }else{
+                constraintSet.connect(R.id.title,ConstraintSet.END,R.id.backgroundImage,ConstraintSet.START)
+                constraintSet.clear(R.id.title,ConstraintSet.START)
                 constraintSet.applyTo(binding.constraintContainer)
             }
         }
