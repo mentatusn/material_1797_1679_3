@@ -11,10 +11,13 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnticipateInterpolator
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.*
@@ -25,15 +28,34 @@ class AnimationsActivity : AppCompatActivity() {
 
     val duration = 1000L
 
-    lateinit var binding: ActivityAnimationsRotateFabBinding
+    lateinit var binding: ActivityAnimationsBonusStartBinding
     var flag = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAnimationsRotateFabBinding.inflate(layoutInflater)
+        binding = ActivityAnimationsBonusStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            binding.header.isSelected = binding.scrollView.canScrollVertically(-1)
+        binding.backgroundImage.setOnClickListener {
+            flag = !flag
+            if(flag){
+                val changeBounds = ChangeBounds()
+                changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+                changeBounds.duration= 1000L
+                TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
+
+                val constraintSet= ConstraintSet()
+                constraintSet.clone(this,R.layout.activity_animations_bonus_end)
+                constraintSet.applyTo(binding.constraintContainer)
+            }else{
+                val changeBounds = ChangeBounds()
+                changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+                changeBounds.duration= 1000L
+                TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
+
+                val constraintSet= ConstraintSet()
+                constraintSet.clone(this,R.layout.activity_animations_bonus_start)
+                constraintSet.applyTo(binding.constraintContainer)
+            }
         }
     }
 
