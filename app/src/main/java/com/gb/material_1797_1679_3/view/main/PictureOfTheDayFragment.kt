@@ -52,6 +52,8 @@ class PictureOfTheDayFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.sendServerRequest()
 
+
+
         binding.inputLayout.setEndIconOnClickListener{
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     buildFeatures{
         viewBinding true
@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId "com.gb.material_1797_1679_3"
         minSdk 24
-        targetSdk 32
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
