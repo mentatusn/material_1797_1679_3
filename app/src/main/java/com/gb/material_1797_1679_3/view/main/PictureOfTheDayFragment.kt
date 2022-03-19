@@ -52,7 +52,9 @@ class PictureOfTheDayFragment : Fragment() {
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.sendServerRequest()
 
-
+        (requireActivity() as MainActivity).runOnUiThread {
+            binding.btnYes.visibility = View.GONE
+        }
 
         binding.inputLayout.setEndIconOnClickListener{
             startActivity(Intent(Intent.ACTION_VIEW).apply {
