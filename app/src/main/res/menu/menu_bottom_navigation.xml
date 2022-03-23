@@ -25,5 +25,11 @@
             app:showAsAction="always"
             android:title="На экран AnimationsActivity" />
 
+        <item
+            android:id="@+id/navigation_five"
+            android:icon="@drawable/ic_send"
+            app:showAsAction="always"
+            android:title="На экран RecyclerActivity" />
+
 
 </menu>
