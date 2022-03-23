@@ -64,6 +64,20 @@ class RecyclerActivityAdapter(val onClickItemListener:OnClickItemListener):Recyc
                     listData.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
                 }
+                moveItemUp.setOnClickListener {
+                    // TODO HW java.lang.IndexOutOfBoundsException +Header не трогаем
+                    listData.removeAt(layoutPosition).apply {
+                        listData.add(layoutPosition-1,this)
+                    }
+                    notifyItemMoved(layoutPosition,layoutPosition-1)
+                }
+                moveItemDown.setOnClickListener {
+                    // TODO HW java.lang.IndexOutOfBoundsException
+                    listData.removeAt(layoutPosition).apply {
+                        listData.add(layoutPosition+1,this)
+                    }
+                    notifyItemMoved(layoutPosition,layoutPosition+1)
+                }
             }
         }
     }
