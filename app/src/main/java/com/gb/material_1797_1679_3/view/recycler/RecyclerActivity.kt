@@ -16,7 +16,7 @@ class RecyclerActivity : AppCompatActivity() {
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val data = arrayListOf(
+        val listData = arrayListOf(
             Data(getString(R.string.earth), "Дополнительный текст"),
             Data(getString(R.string.earth), "Дополнительный текст"),
             Data(getString(R.string.earth), "Дополнительный текст"),
@@ -26,13 +26,14 @@ class RecyclerActivity : AppCompatActivity() {
             Data(getString(R.string.mars), type=TYPE_MARS),
             Data(getString(R.string.mars), type=TYPE_MARS),
         )
-        data.shuffle()
+        listData.shuffle()
+        listData.add(0,Data(getString(R.string.header), type= TYPE_HEADER))
         val adapter = RecyclerActivityAdapter(object :OnClickItemListener{
             override fun onItemClick(data: Data) {
                 Toast.makeText(this@RecyclerActivity,"Мы супер ${data.name}",Toast.LENGTH_SHORT).show()
             }
         })
-        adapter.setData(data)
+        adapter.setData(listData)
         binding.recyclerView.adapter = adapter
     }
 
