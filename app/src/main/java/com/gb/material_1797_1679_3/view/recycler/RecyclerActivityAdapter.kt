@@ -10,23 +10,37 @@ import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemEarthBinding
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemHeaderBinding
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemMarsBinding
 
-class RecyclerActivityAdapter(val onClickItemListener:OnClickItemListener):RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>() {
-    private lateinit var listData: MutableList<Data>
-    fun setData(listData:MutableList<Data>){
+class RecyclerActivityAdapter(val onClickItemListener: OnClickItemListener) :
+    RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>() {
+    private lateinit var listData: MutableList<Pair<Data, Boolean>>
+    fun setData(listData: MutableList<Pair<Data, Boolean>>) {
         this.listData = listData
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return when(viewType){
+        return when (viewType) {
             TYPE_EARTH -> {
-                val binding = ActivityRecyclerItemEarthBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding = ActivityRecyclerItemEarthBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 EarthViewHolder(binding.root)
             }
-            TYPE_HEADER-> {
-                val binding = ActivityRecyclerItemHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            TYPE_HEADER -> {
+                val binding = ActivityRecyclerItemHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 HeaderViewHolder(binding.root)
             }
-            else-> {
-                val binding = ActivityRecyclerItemMarsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            else -> {
+                val binding = ActivityRecyclerItemMarsBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 MarsViewHolder(binding.root)
             }
         }
@@ -37,27 +51,28 @@ class RecyclerActivityAdapter(val onClickItemListener:OnClickItemListener):Recyc
     }
 
     override fun getItemViewType(position: Int): Int {
-        return listData[position].type
+        return listData[position].first.type
     }
 
-    override fun getItemCount()=listData.size
+    override fun getItemCount() = listData.size
 
     fun appendItem() {
         listData.add(generateData())
         //notifyDataSetChanged()
-        notifyItemInserted(listData.size-1)
+        notifyItemInserted(listData.size - 1)
     }
-    fun generateData() = Data("Mars", type=TYPE_MARS)
 
-    inner class MarsViewHolder(view:View):BaseViewHolder(view){
-        override fun bind(data: Data){
+    fun generateData() = Pair(Data("Mars", type = TYPE_MARS), false)
+
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
+        override fun bind(data: Pair<Data, Boolean>) {
             ActivityRecyclerItemMarsBinding.bind(itemView).apply {
-                tvName.text = data.name
+                tvName.text = data.first.name
                 ivMars.setOnClickListener {
-                    onClickItemListener.onItemClick(data)
+                    onClickItemListener.onItemClick(data.first)
                 }
                 addItemImageView.setOnClickListener {
-                    listData.add(layoutPosition,generateData())
+                    listData.add(layoutPosition, generateData())
                     notifyItemInserted(layoutPosition)
                 }
                 removeItemImageView.setOnClickListener {
@@ -67,48 +82,54 @@ class RecyclerActivityAdapter(val onClickItemListener:OnClickItemListener):Recyc
                 moveItemUp.setOnClickListener {
                     // TODO HW java.lang.IndexOutOfBoundsException +Header не трогаем
                     listData.removeAt(layoutPosition).apply {
-                        listData.add(layoutPosition-1,this)
+                        listData.add(layoutPosition - 1, this)
                     }
-                    notifyItemMoved(layoutPosition,layoutPosition-1)
+                    notifyItemMoved(layoutPosition, layoutPosition - 1)
                 }
                 moveItemDown.setOnClickListener {
                     // TODO HW java.lang.IndexOutOfBoundsException
                     listData.removeAt(layoutPosition).apply {
-                        listData.add(layoutPosition+1,this)
+                        listData.add(layoutPosition + 1, this)
                     }
-                    notifyItemMoved(layoutPosition,layoutPosition+1)
+                    notifyItemMoved(layoutPosition, layoutPosition + 1)
                 }
-            }
-        }
-    }
+                marsDescriptionTextView.visibility = if(listData[layoutPosition].second) View.VISIBLE else View.GONE
 
-
-
-
-    abstract class BaseViewHolder(view:View):RecyclerView.ViewHolder(view){
-        abstract fun bind(data: Data)
-    }
-
-    inner class EarthViewHolder(view:View):BaseViewHolder(view){
-        override fun bind(data: Data){
-            ActivityRecyclerItemEarthBinding.bind(itemView).apply {
-                tvName.text = data.name
-                tvDescription.text = data.description
-                ivEarth.setOnClickListener {
-                    onClickItemListener.onItemClick(data)
-                }
-            }
-        }
-    }
-
-
-
-    inner class HeaderViewHolder(view:View):BaseViewHolder(view){
-        override fun bind(data: Data){
-            ActivityRecyclerItemHeaderBinding.bind(itemView).apply {
-                tvName.text = data.name
                 itemView.setOnClickListener {
-                    onClickItemListener.onItemClick(data)
+                    listData[layoutPosition] = listData[layoutPosition].let {
+                        it.first to !it.second
+                    }
+                    notifyItemChanged(layoutPosition)
+                }
+
+            }
+        }
+    }
+
+
+    abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        abstract fun bind(data: Pair<Data, Boolean>)
+    }
+
+    inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
+        override fun bind(data: Pair<Data, Boolean>) {
+            ActivityRecyclerItemEarthBinding.bind(itemView).apply {
+                tvName.text = data.first.name
+                tvDescription.text = data.first.description
+                ivEarth.setOnClickListener {
+                    onClickItemListener.onItemClick(data.first)
+                }
+            }
+        }
+    }
+
+
+    inner class HeaderViewHolder(view: View) : BaseViewHolder(view) {
+        override fun bind(data: Pair<Data, Boolean>) {
+            ActivityRecyclerItemHeaderBinding.bind(itemView).apply {
+                tvName.text = data.first.name
+                itemView.setOnClickListener {
+                    onClickItemListener.onItemClick(data.first)
                 }
             }
         }
