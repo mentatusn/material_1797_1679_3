@@ -19,10 +19,6 @@ class RecyclerActivity : AppCompatActivity() {
         val listData = arrayListOf(
             Data(getString(R.string.earth), "Дополнительный текст"),
             Data(getString(R.string.earth), "Дополнительный текст"),
-            Data(getString(R.string.earth), "Дополнительный текст"),
-            Data(getString(R.string.earth), "Дополнительный текст"),
-            Data(getString(R.string.mars), type=TYPE_MARS),
-            Data(getString(R.string.mars), type=TYPE_MARS),
             Data(getString(R.string.mars), type=TYPE_MARS),
             Data(getString(R.string.mars), type=TYPE_MARS),
         )
@@ -35,6 +31,7 @@ class RecyclerActivity : AppCompatActivity() {
         })
         adapter.setData(listData)
         binding.recyclerView.adapter = adapter
+        binding.recyclerActivityFAB.setOnClickListener { adapter.appendItem() }
     }
 
 }

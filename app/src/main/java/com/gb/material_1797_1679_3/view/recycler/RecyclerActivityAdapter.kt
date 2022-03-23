@@ -1,16 +1,18 @@
 package com.gb.material_1797_1679_3.view.recycler
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemEarthBinding
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemHeaderBinding
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemMarsBinding
 
 class RecyclerActivityAdapter(val onClickItemListener:OnClickItemListener):RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>() {
-    private lateinit var listData: List<Data>
-    fun setData(listData:List<Data>){
+    private lateinit var listData: MutableList<Data>
+    fun setData(listData:MutableList<Data>){
         this.listData = listData
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -40,6 +42,43 @@ class RecyclerActivityAdapter(val onClickItemListener:OnClickItemListener):Recyc
 
     override fun getItemCount()=listData.size
 
+    fun appendItem() {
+        listData.add(generateData())
+        //notifyDataSetChanged()
+        notifyItemInserted(listData.size-1)
+    }
+    fun generateData() = Data("Mars", type=TYPE_MARS)
+
+    inner class MarsViewHolder(view:View):BaseViewHolder(view){
+        override fun bind(data: Data){
+            ActivityRecyclerItemMarsBinding.bind(itemView).apply {
+                tvName.text = data.name
+                ivMars.setOnClickListener {
+                    onClickItemListener.onItemClick(data)
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     abstract class BaseViewHolder(view:View):RecyclerView.ViewHolder(view){
         abstract fun bind(data: Data)
@@ -57,16 +96,7 @@ class RecyclerActivityAdapter(val onClickItemListener:OnClickItemListener):Recyc
         }
     }
 
-    inner class MarsViewHolder(view:View):BaseViewHolder(view){
-        override fun bind(data: Data){
-            ActivityRecyclerItemMarsBinding.bind(itemView).apply {
-                tvName.text = data.name
-                ivMars.setOnClickListener {
-                    onClickItemListener.onItemClick(data)
-                }
-            }
-        }
-    }
+
 
     inner class HeaderViewHolder(view:View):BaseViewHolder(view){
         override fun bind(data: Data){
