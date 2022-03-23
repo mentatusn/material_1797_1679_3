@@ -1,6 +1,7 @@
 package com.gb.material_1797_1679_3.view.recycler
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemHeaderBinding
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemMarsBinding
 
 class RecyclerActivityAdapter(val onClickItemListener: OnClickItemListener) :
-    RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>() {
+    RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>(),ItemTouchHelperAdapter {
     private lateinit var listData: MutableList<Pair<Data, Boolean>>
     fun setData(listData: MutableList<Pair<Data, Boolean>>) {
         this.listData = listData
@@ -64,7 +65,19 @@ class RecyclerActivityAdapter(val onClickItemListener: OnClickItemListener) :
 
     fun generateData() = Pair(Data("Mars", type = TYPE_MARS), false)
 
-    inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        listData.removeAt(fromPosition).apply {
+            listData.add(toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        listData.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view),ItemTouchHelperViewHolder {
         override fun bind(data: Pair<Data, Boolean>) {
             ActivityRecyclerItemMarsBinding.bind(itemView).apply {
                 tvName.text = data.first.name
@@ -104,6 +117,14 @@ class RecyclerActivityAdapter(val onClickItemListener: OnClickItemListener) :
 
             }
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.CYAN)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
     }
 
 
@@ -134,6 +155,8 @@ class RecyclerActivityAdapter(val onClickItemListener: OnClickItemListener) :
             }
         }
     }
+
+
 
 
 }
