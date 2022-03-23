@@ -12,6 +12,7 @@ import com.gb.material_1797_1679_3.view.main.PictureOfTheDayFragment
 class RecyclerActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityRecyclerBinding
+    lateinit var itemTouchHelper:ItemTouchHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.MyBlueTheme)
@@ -49,14 +50,20 @@ class RecyclerActivity : AppCompatActivity() {
                 Toast.makeText(this@RecyclerActivity, "Мы супер ${data.name}", Toast.LENGTH_SHORT)
                     .show()
             }
+        }, object: OnStartDragListener{
+            override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+                itemTouchHelper.startDrag(viewHolder)
+            }
         })
+
         adapter.setData(listData)
         binding.recyclerView.adapter = adapter
         binding.recyclerActivityFAB.setOnClickListener {
             adapter.appendItem()
             //binding.recyclerView.smoothScrollToPosition(adapter.itemCount)
         }
-        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView)
+        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
 
     class ItemTouchHelperCallback(val recyclerActivityAdapter:RecyclerActivityAdapter):ItemTouchHelper.Callback(){

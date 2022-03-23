@@ -3,15 +3,17 @@ package com.gb.material_1797_1679_3.view.recycler
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemEarthBinding
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemHeaderBinding
 import com.gb.material_1797_1679_3.databinding.ActivityRecyclerItemMarsBinding
 
-class RecyclerActivityAdapter(val onClickItemListener: OnClickItemListener) :
+class RecyclerActivityAdapter(val onClickItemListener: OnClickItemListener,val onStartDragListener: OnStartDragListener) :
     RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>(),ItemTouchHelperAdapter {
     private lateinit var listData: MutableList<Pair<Data, Boolean>>
     fun setData(listData: MutableList<Pair<Data, Boolean>>) {
@@ -115,6 +117,12 @@ class RecyclerActivityAdapter(val onClickItemListener: OnClickItemListener) :
                     notifyItemChanged(layoutPosition)
                 }
 
+                dragHandleImageView.setOnTouchListener { v, event ->
+                    if(MotionEventCompat.getActionMasked(event)==MotionEvent.ACTION_DOWN){
+                        onStartDragListener.onStartDrag(this@MarsViewHolder)
+                    }
+                    false
+                }
             }
         }
 
