@@ -15,6 +15,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -144,9 +145,13 @@ class PictureOfTheDayFragment : Fragment() {
                 binding.included.bottomSheetDescription.text = Html.fromHtml(text,Html.FROM_HTML_MODE_COMPACT)*/
 
                 val text = pictureOfTheDayState.serverResponseData.explanation
-                val spannableStringBuilder  = SpannableStringBuilder(text)
+                var spannableStringBuilder  = SpannableStringBuilder(text)
                 val spannableString  = SpannableString(text)
                 val spannedString  = SpannedString(spannableStringBuilder)
+
+                binding.included.bottomSheetDescription.setText(spannableStringBuilder,TextView.BufferType.EDITABLE)
+                //binding.included.bottomSheetDescription.setText(spannableString,TextView.BufferType.SPANNABLE)
+                spannableStringBuilder = binding.included.bottomSheetDescription.text as SpannableStringBuilder
 
 
                 //text.split("\n").forEach { it.length }
@@ -177,11 +182,6 @@ class PictureOfTheDayFragment : Fragment() {
                         DynamicDrawableSpan.ALIGN_CENTER),it,it+1,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
                 } }
 
-
-
-
-
-                binding.included.bottomSheetDescription.text = spannableStringBuilder
             }
         }
     }
