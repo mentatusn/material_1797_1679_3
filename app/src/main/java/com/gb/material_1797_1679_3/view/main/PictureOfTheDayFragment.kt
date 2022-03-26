@@ -5,14 +5,13 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Html
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.SpannedString
-import android.text.style.BulletSpan
-import android.text.style.DynamicDrawableSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.ImageSpan
+import android.text.style.*
 import android.util.Log
 import android.view.*
 import android.widget.TextView
@@ -20,6 +19,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -119,6 +120,18 @@ class PictureOfTheDayFragment : Fragment() {
         binding.btnNo.setOnClickListener {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+
+        val request = FontRequest("com.google.android.gms.fonts","com.google.android.gms",
+        "Aguafina Script",R.array.com_google_android_gms_fonts_certs)
+
+        val callback= object : FontsContractCompat.FontRequestCallback(){
+            override fun onTypefaceRetrieved(typeface: Typeface?) {
+                binding.included.bottomSheetDescription.typeface = typeface
+                super.onTypefaceRetrieved(typeface)
+            }
+        }
+        FontsContractCompat.requestFont(requireContext(),request,callback, Handler(Looper.myLooper()!!))
+
     }
 
     var isMain:Boolean = true
@@ -169,13 +182,21 @@ class PictureOfTheDayFragment : Fragment() {
                 spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.colorAccent)),0,spannableStringBuilder.length/2,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
                 spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.teal_200)),spannableStringBuilder.length/2,spannableStringBuilder.length,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
 
+
+
+
                 spannableStringBuilder.insert(spannableStringBuilder.length/2,"MMMMMMMMMMMMM")
                 spannableStringBuilder.insert(0,"LLLLLLLLLLLLLL")
 
                 spannableStringBuilder.insert(spannableStringBuilder.length,"RRRRRRRRRRRRR")
-
+                
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    spannableStringBuilder.setSpan(TypefaceSpan(Typeface.createFromAsset(requireActivity().assets,
+                        "folder1/folder2/font/Robus-BWqOd.otf")), 0, spannableStringBuilder.length/2, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                }
 
                 spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.purple_700)),0,1,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+
 
                 spannableStringBuilder.indices.forEach { if(spannableStringBuilder[it]==('o')){
                     spannableStringBuilder.setSpan(ImageSpan(requireContext(),R.drawable.ic_earth,
