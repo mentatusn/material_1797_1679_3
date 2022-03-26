@@ -5,6 +5,14 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
+import android.text.style.BulletSpan
+import android.text.style.DynamicDrawableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -125,12 +133,55 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayState.Success -> {
                 binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
                 binding.included.bottomSheetDescription.text = "Тест тест тест ${pictureOfTheDayState.serverResponseData.explanation}"
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     binding.included.bottomSheetDescription.typeface = resources.getFont(R.font.robus)
                 }else{
                     binding.included.bottomSheetDescription.typeface = Typeface.createFromAsset(requireActivity().assets,
                         "folder1/folder2/font/Robus-BWqOd.otf")
+                }*/
+
+                /*val text = "My text <ul><li>bullet one</li><li>bullet two</li></ul>"
+                binding.included.bottomSheetDescription.text = Html.fromHtml(text,Html.FROM_HTML_MODE_COMPACT)*/
+
+                val text = pictureOfTheDayState.serverResponseData.explanation
+                val spannableStringBuilder  = SpannableStringBuilder(text)
+                val spannableString  = SpannableString(text)
+                val spannedString  = SpannedString(spannableStringBuilder)
+
+
+                //text.split("\n").forEach { it.length }
+
+                spannableStringBuilder.insert(3,"\n")
+                spannableStringBuilder.insert(9,"\n")
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    spannableStringBuilder.setSpan(BulletSpan(200,ContextCompat.getColor(requireContext(),R.color.colorAccent),20),4,10,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
+
+
+
+
+                spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.colorAccent)),0,spannableStringBuilder.length/2,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.teal_200)),spannableStringBuilder.length/2,spannableStringBuilder.length,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+
+                spannableStringBuilder.insert(spannableStringBuilder.length/2,"MMMMMMMMMMMMM")
+                spannableStringBuilder.insert(0,"LLLLLLLLLLLLLL")
+
+                spannableStringBuilder.insert(spannableStringBuilder.length,"RRRRRRRRRRRRR")
+
+
+                spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.purple_700)),0,1,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+
+                spannableStringBuilder.indices.forEach { if(spannableStringBuilder[it]==('o')){
+                    spannableStringBuilder.setSpan(ImageSpan(requireContext(),R.drawable.ic_earth,
+                        DynamicDrawableSpan.ALIGN_CENTER),it,it+1,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                } }
+
+
+
+
+
+                binding.included.bottomSheetDescription.text = spannableStringBuilder
             }
         }
     }
