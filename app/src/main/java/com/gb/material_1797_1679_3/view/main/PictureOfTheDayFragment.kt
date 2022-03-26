@@ -1,7 +1,9 @@
 package com.gb.material_1797_1679_3.view.main
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -63,7 +65,7 @@ class PictureOfTheDayFragment : Fragment() {
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
         bottomSheetBehavior.addBottomSheetCallback(object :BottomSheetBehavior.BottomSheetCallback(){
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -122,7 +124,13 @@ class PictureOfTheDayFragment : Fragment() {
             }
             is PictureOfTheDayState.Success -> {
                 binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
-                //  TODO HW Добавьте описание (приходит с сервера) под фотографией в виде BottomSheet.
+                binding.included.bottomSheetDescription.text = "Тест тест тест ${pictureOfTheDayState.serverResponseData.explanation}"
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    binding.included.bottomSheetDescription.typeface = resources.getFont(R.font.robus)
+                }else{
+                    binding.included.bottomSheetDescription.typeface = Typeface.createFromAsset(requireActivity().assets,
+                        "folder1/folder2/font/Robus-BWqOd.otf")
+                }
             }
         }
     }

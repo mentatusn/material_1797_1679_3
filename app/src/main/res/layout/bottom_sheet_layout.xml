@@ -30,13 +30,14 @@
         android:paddingEnd="10dp"
         android:textColor="#000"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
         tools:text="Two Clusters and a Comet" />
 
     <TextView
-        android:id="@+id/bottom_sheet_description"
+        android:id="@+id/bottomSheetDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
@@ -44,6 +45,7 @@
         android:text="pictureOfTheDayState.serverResponseData.explanation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header"
         tools:text="This lovely starfield spans some four full moons." />
 </androidx.constraintlayout.widget.ConstraintLayout>
