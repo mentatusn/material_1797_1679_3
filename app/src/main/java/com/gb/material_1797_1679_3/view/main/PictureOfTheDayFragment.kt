@@ -33,6 +33,7 @@ import com.gb.material_1797_1679_3.viewmodel.PictureOfTheDayState
 import com.gb.material_1797_1679_3.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.util.regex.Pattern
 
 class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
@@ -75,7 +76,7 @@ class PictureOfTheDayFragment : Fragment() {
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         bottomSheetBehavior.addBottomSheetCallback(object :BottomSheetBehavior.BottomSheetCallback(){
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -135,6 +136,19 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     var isMain:Boolean = true
+
+    fun extractYTId(ytUrl: String?): String? {
+        var vId: String? = null
+        val pattern = Pattern.compile(
+            "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
+            Pattern.CASE_INSENSITIVE
+        )
+        val matcher = pattern.matcher(ytUrl)
+        if (matcher.matches()) {
+            vId = matcher.group(1)
+        }
+        return vId
+    }
 
     private fun renderData(pictureOfTheDayState: PictureOfTheDayState) {
         when (pictureOfTheDayState) {

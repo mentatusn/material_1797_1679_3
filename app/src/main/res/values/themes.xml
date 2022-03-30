@@ -1,6 +1,10 @@
 <resources>
     <!-- Base application theme. -->
+
+
+
     <style name="MyBaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
 
         <item name="android:statusBarColor">?superColor</item>
         <item name="android:navigationBarColor">?superColor</item>
@@ -30,6 +34,11 @@
 
     </style>
 
+
+    <style name="MySplashTheme" parent="MyBaseTheme">
+        <item name="superColor">@color/red_900</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
 
     <style name="MyRedTheme" parent="MyBaseTheme">
         <item name="superColor">@color/red_900</item>
