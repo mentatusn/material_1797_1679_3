@@ -5,12 +5,17 @@
         android:id="@+id/fragment_ux_text"
         android:icon="@drawable/ic_earth"
         app:tooltipText = "fragment_ux "
-        android:title="fragment_ux" />
+        android:title="ux_text" />
     <item
         android:id="@+id/fragment_ux_button"
         android:icon="@drawable/ic_earth"
         app:tooltipText = "fragment_ux "
-        android:title="fragment_ux" />
+        android:title="ux_button" />
+    <item
+        android:id="@+id/fragment_ux_tutorial"
+        android:icon="@drawable/ic_earth"
+        app:tooltipText = "fragment_ux "
+        android:title="ux_tutorial" />
 
 
 

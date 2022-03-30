@@ -29,7 +29,6 @@
             android:textSize="20sp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnBad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/color_gray"
@@ -64,7 +63,6 @@
             android:textSize="20sp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnGood"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
