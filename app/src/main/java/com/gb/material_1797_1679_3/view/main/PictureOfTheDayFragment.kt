@@ -33,6 +33,9 @@ import com.gb.material_1797_1679_3.viewmodel.PictureOfTheDayState
 import com.gb.material_1797_1679_3.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import java.util.regex.Pattern
 
 class PictureOfTheDayFragment : Fragment() {
@@ -40,7 +43,7 @@ class PictureOfTheDayFragment : Fragment() {
     private val binding: FragmentMainBinding
         get() = _binding!!
 
-    companion object{
+    companion object {
         fun newInstance() = PictureOfTheDayFragment()
     }
 
@@ -57,7 +60,7 @@ class PictureOfTheDayFragment : Fragment() {
         return binding.root
     }
 
-    private lateinit var bottomSheetBehavior:BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -69,18 +72,20 @@ class PictureOfTheDayFragment : Fragment() {
             binding.btnYes.visibility = View.GONE
         }
 
-        binding.inputLayout.setEndIconOnClickListener{
+        binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                data =
+                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        bottomSheetBehavior.addBottomSheetCallback(object :BottomSheetBehavior.BottomSheetCallback(){
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState){
+                when (newState) {
                     /*BottomSheetBehavior.STATE_DRAGGING -> TODO("not implemented")
                     BottomSheetBehavior.STATE_COLLAPSED -> TODO("not implemented")
                     BottomSheetBehavior.STATE_EXPANDED -> TODO("not implemented")
@@ -91,23 +96,36 @@ class PictureOfTheDayFragment : Fragment() {
             }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                Log.d("mylogs","$slideOffset slideOffset")
+                Log.d("mylogs", "$slideOffset slideOffset")
             }
         })
 
 
-        binding.fab.setOnClickListener{
-            if(isMain){
+        binding.fab.setOnClickListener {
+            if (isMain) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 binding.bottomAppBar.navigationIcon = null
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                binding.fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_back_fab))
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_back_fab
+                    )
+                )
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
-            }else{
+            } else {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                binding.bottomAppBar.navigationIcon = ContextCompat.getDrawable(requireContext(),R.drawable.ic_hamburger_menu_bottom_bar)
+                binding.bottomAppBar.navigationIcon = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_hamburger_menu_bottom_bar
+                )
                 binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                binding.fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_plus_fab))
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_plus_fab
+                    )
+                )
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
             }
             isMain = !isMain
@@ -122,22 +140,29 @@ class PictureOfTheDayFragment : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        val request = FontRequest("com.google.android.gms.fonts","com.google.android.gms",
-        "Aguafina Script",R.array.com_google_android_gms_fonts_certs)
+        val request = FontRequest(
+            "com.google.android.gms.fonts", "com.google.android.gms",
+            "Aguafina Script", R.array.com_google_android_gms_fonts_certs
+        )
 
-        val callback= object : FontsContractCompat.FontRequestCallback(){
+        val callback = object : FontsContractCompat.FontRequestCallback() {
             override fun onTypefaceRetrieved(typeface: Typeface?) {
                 binding.included.bottomSheetDescription.typeface = typeface
                 super.onTypefaceRetrieved(typeface)
             }
         }
-        FontsContractCompat.requestFont(requireContext(),request,callback, Handler(Looper.myLooper()!!))
+        FontsContractCompat.requestFont(
+            requireContext(),
+            request,
+            callback,
+            Handler(Looper.myLooper()!!)
+        )
 
     }
 
-    var isMain:Boolean = true
+    var isMain: Boolean = true
 
-    fun extractYTId(ytUrl: String?): String? {
+    fun extractYTId(ytUrl: String): String {
         var vId: String? = null
         val pattern = Pattern.compile(
             "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
@@ -147,8 +172,41 @@ class PictureOfTheDayFragment : Fragment() {
         if (matcher.matches()) {
             vId = matcher.group(1)
         }
-        return vId
+        return vId!!
     }
+
+
+    private fun showAVideoUrl(videoUrl: String) = with(binding) {
+        with(binding) {
+            imageView.visibility = View.GONE
+            videoOfTheDay.visibility = View.VISIBLE
+            videoOfTheDay.text = "Сегодня у нас без картинки дня, но есть  видео дня! " +
+                    "${videoUrl.toString()} \n кликни >ЗДЕСЬ< чтобы открыть в новом окне"
+            videoOfTheDay.setOnClickListener {
+                val i = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(videoUrl)
+                }
+                startActivity(i)
+            }
+        }
+
+    }
+
+    private fun showNasaVideo(videoId: String) {
+        with(binding) {
+            lifecycle.addObserver(binding.youtubePlayer)
+
+            youtubePlayer.addYouTubePlayerListener(object :
+                AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    //youTubePlayer.loadVideo(videoId, 0f)
+                    youTubePlayer.cueVideo(videoId, 0f)
+                    // youTubePlayer.pause()
+                }
+            })
+        }
+    }
+
 
     private fun renderData(pictureOfTheDayState: PictureOfTheDayState) {
         when (pictureOfTheDayState) {
@@ -159,8 +217,24 @@ class PictureOfTheDayFragment : Fragment() {
                 // TODO HW
             }
             is PictureOfTheDayState.Success -> {
-                binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
-                binding.included.bottomSheetDescription.text = "Тест тест тест ${pictureOfTheDayState.serverResponseData.explanation}"
+
+                if (pictureOfTheDayState.serverResponseData.mediaType == "video") {
+                    //showAVideoUrl(pictureOfTheDayState.serverResponseData.url)
+                    binding.youtubePlayer.visibility = View.VISIBLE
+                    binding.imageView.visibility = View.GONE
+                    showNasaVideo(extractYTId(pictureOfTheDayState.serverResponseData.url))
+                } else {
+                    binding.youtubePlayer.visibility = View.GONE
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.imageView.load(pictureOfTheDayState.serverResponseData.hdurl)
+                }
+
+
+
+                binding.included.bottomSheetDescription.text =
+                    "Тест тест тест ${pictureOfTheDayState.serverResponseData.explanation}"
+
+
                 /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     binding.included.bottomSheetDescription.typeface = resources.getFont(R.font.robus)
                 }else{
@@ -172,50 +246,102 @@ class PictureOfTheDayFragment : Fragment() {
                 binding.included.bottomSheetDescription.text = Html.fromHtml(text,Html.FROM_HTML_MODE_COMPACT)*/
 
                 val text = pictureOfTheDayState.serverResponseData.explanation
-                var spannableStringBuilder  = SpannableStringBuilder(text)
-                val spannableString  = SpannableString(text)
-                val spannedString  = SpannedString(spannableStringBuilder)
+                var spannableStringBuilder = SpannableStringBuilder(text)
+                val spannableString = SpannableString(text)
+                val spannedString = SpannedString(spannableStringBuilder)
 
-                binding.included.bottomSheetDescription.setText(spannableStringBuilder,TextView.BufferType.EDITABLE)
+                binding.included.bottomSheetDescription.setText(
+                    spannableStringBuilder,
+                    TextView.BufferType.EDITABLE
+                )
                 //binding.included.bottomSheetDescription.setText(spannableString,TextView.BufferType.SPANNABLE)
-                spannableStringBuilder = binding.included.bottomSheetDescription.text as SpannableStringBuilder
+                spannableStringBuilder =
+                    binding.included.bottomSheetDescription.text as SpannableStringBuilder
 
 
                 //text.split("\n").forEach { it.length }
 
-                spannableStringBuilder.insert(3,"\n")
-                spannableStringBuilder.insert(9,"\n")
+                spannableStringBuilder.insert(3, "\n")
+                spannableStringBuilder.insert(9, "\n")
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    spannableStringBuilder.setSpan(BulletSpan(200,ContextCompat.getColor(requireContext(),R.color.colorAccent),20),4,10,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    spannableStringBuilder.setSpan(
+                        BulletSpan(
+                            200,
+                            ContextCompat.getColor(requireContext(), R.color.colorAccent),
+                            20
+                        ), 4, 10, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
                 }
 
 
 
 
-                spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.colorAccent)),0,spannableStringBuilder.length/2,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.teal_200)),spannableStringBuilder.length/2,spannableStringBuilder.length,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                spannableStringBuilder.setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorAccent
+                        )
+                    ),
+                    0,
+                    spannableStringBuilder.length / 2,
+                    SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+                )
+                spannableStringBuilder.setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.teal_200
+                        )
+                    ),
+                    spannableStringBuilder.length / 2,
+                    spannableStringBuilder.length,
+                    SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+                )
 
 
 
 
-                spannableStringBuilder.insert(spannableStringBuilder.length/2,"MMMMMMMMMMMMM")
-                spannableStringBuilder.insert(0,"LLLLLLLLLLLLLL")
+                spannableStringBuilder.insert(spannableStringBuilder.length / 2, "MMMMMMMMMMMMM")
+                spannableStringBuilder.insert(0, "LLLLLLLLLLLLLL")
 
-                spannableStringBuilder.insert(spannableStringBuilder.length,"RRRRRRRRRRRRR")
-                
+                spannableStringBuilder.insert(spannableStringBuilder.length, "RRRRRRRRRRRRR")
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    spannableStringBuilder.setSpan(TypefaceSpan(Typeface.createFromAsset(requireActivity().assets,
-                        "folder1/folder2/font/Robus-BWqOd.otf")), 0, spannableStringBuilder.length/2, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                    spannableStringBuilder.setSpan(
+                        TypefaceSpan(
+                            Typeface.createFromAsset(
+                                requireActivity().assets,
+                                "folder1/folder2/font/Robus-BWqOd.otf"
+                            )
+                        ),
+                        0,
+                        spannableStringBuilder.length / 2,
+                        SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+                    )
                 }
 
-                spannableStringBuilder.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.purple_700)),0,1,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                spannableStringBuilder.setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.purple_700
+                        )
+                    ), 0, 1, SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+                )
 
 
-                spannableStringBuilder.indices.forEach { if(spannableStringBuilder[it]==('o')){
-                    spannableStringBuilder.setSpan(ImageSpan(requireContext(),R.drawable.ic_earth,
-                        DynamicDrawableSpan.ALIGN_CENTER),it,it+1,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                } }
+                spannableStringBuilder.indices.forEach {
+                    if (spannableStringBuilder[it] == ('o')) {
+                        spannableStringBuilder.setSpan(
+                            ImageSpan(
+                                requireContext(), R.drawable.ic_earth,
+                                DynamicDrawableSpan.ALIGN_CENTER
+                            ), it, it + 1, SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+                        )
+                    }
+                }
 
             }
         }
@@ -223,17 +349,20 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar,menu)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-            R.id.app_bar_fav -> Toast.makeText(requireContext(),"app_bar_fav",Toast.LENGTH_SHORT).show()
+        when (item.itemId) {
+            R.id.app_bar_fav -> Toast.makeText(requireContext(), "app_bar_fav", Toast.LENGTH_SHORT)
+                .show()
             R.id.app_bar_settings -> {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container,ChipsFragment.newInstance()).addToBackStack("").commit()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, ChipsFragment.newInstance()).addToBackStack("")
+                    .commit()
             }
             android.R.id.home -> {
-                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"")
+                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
             }
         }
         return super.onOptionsItemSelected(item)

@@ -44,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
 
     implementation 'com.github.mreram:showcaseview:1.4.0'
 
