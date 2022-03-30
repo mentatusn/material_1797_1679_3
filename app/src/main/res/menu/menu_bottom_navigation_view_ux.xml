@@ -2,7 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/fragment_ux"
+        android:id="@+id/fragment_ux_text"
+        android:icon="@drawable/ic_earth"
+        app:tooltipText = "fragment_ux "
+        android:title="fragment_ux" />
+    <item
+        android:id="@+id/fragment_ux_button"
         android:icon="@drawable/ic_earth"
         app:tooltipText = "fragment_ux "
         android:title="fragment_ux" />

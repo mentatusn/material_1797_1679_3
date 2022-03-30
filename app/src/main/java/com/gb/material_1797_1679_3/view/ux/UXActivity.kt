@@ -1,16 +1,10 @@
 package com.gb.material_1797_1679_3.view.ux
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.R
 import com.gb.material_1797_1679_3.databinding.ActivityUxBinding
-import com.gb.material_1797_1679_3.view.MainActivity
-import com.gb.material_1797_1679_3.view.main.PictureOfTheDayFragment
 
 class UXActivity : AppCompatActivity() {
     lateinit var binding: ActivityUxBinding
@@ -23,14 +17,17 @@ class UXActivity : AppCompatActivity() {
 
         binding.bottomNavigationViewUX.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.fragment_ux->{
-                    navigateTo(UXFragment.newInstance())
+                R.id.fragment_ux_text->{
+                    navigateTo(TextUXFragment.newInstance())
+                }
+                R.id.fragment_ux_button->{
+                    navigateTo(ButtonUXFragment.newInstance())
                 }
             }
             true
         }
 
-        binding.bottomNavigationViewUX.selectedItemId = R.id.fragment_ux
+        binding.bottomNavigationViewUX.selectedItemId = R.id.fragment_ux_text
     }
 
     fun navigateTo(fragment: Fragment){
