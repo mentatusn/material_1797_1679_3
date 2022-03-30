@@ -9,28 +9,16 @@ import androidx.fragment.app.Fragment
 import com.gb.material_1797_1679_3.databinding.FragmentUxButtonBinding
 
 import com.gb.material_1797_1679_3.databinding.FragmentUxTextBinding
+import com.gb.material_1797_1679_3.databinding.FragmentUxTutorialBinding
 import smartdevelop.ir.eram.showcaseviewlib.GuideView
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
 import smartdevelop.ir.eram.showcaseviewlib.config.Gravity
 import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener
 
-class TutorialUXFragment : Fragment() {
-    private var _binding: FragmentUxButtonBinding? = null
-    private val binding: FragmentUxButtonBinding
-        get() = _binding!!
+class TutorialUXFragment : ViewBindingFragment<FragmentUxButtonBinding>(FragmentUxButtonBinding::inflate) {
 
     companion object{
         fun newInstance() = TutorialUXFragment()
-    }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentUxButtonBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,11 +51,5 @@ class TutorialUXFragment : Fragment() {
             })
         builder.build().show()
 
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }
